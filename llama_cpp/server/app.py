@@ -299,10 +299,15 @@ class ChatCompletionRequestMessage(BaseModel):
 
 
 class CreateChatCompletionRequest(BaseModel):
+    def __init__(self, **data):
+        if 'max_tokens' in data and data['max_tokens'] is None:
+            data['max_tokens'] = 16
+        super().__init__(**data)
+
     messages: List[ChatCompletionRequestMessage] = Field(
         default=[], description="A list of messages to generate completions for."
     )
-    max_tokens: int = max_tokens_field
+    max_tokens: Optional[int] = max_tokens_field
     temperature: float = temperature_field
     top_p: float = top_p_field
     stop: Optional[List[str]] = stop_field
