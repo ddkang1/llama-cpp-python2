@@ -245,7 +245,7 @@ def create_completion(
     request: CreateCompletionRequest, llama: llama_cpp.Llama = Depends(get_llama)
 ):
     if isinstance(request.prompt, list):
-        assert len(request.prompt) <= 1
+        #assert len(request.prompt) <= 1
         request.prompt = request.prompt[0] if len(request.prompt) > 0 else ""
 
     completion_or_chunks = llama(
